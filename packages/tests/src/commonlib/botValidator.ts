@@ -88,6 +88,9 @@ export class BotValidator {
     const botResourceId = ctx[EnvConstants.BOT_ID];
     const resourceId =
       botWebAppResourceId || botFunctionAppResourceId || botResourceId;
+    console.log("botWebAppResourceId: " + botWebAppResourceId);
+    console.log("botFunctionAppResourceId: " + botFunctionAppResourceId);
+    console.log("botResourceId: " + botResourceId);
     return resourceId;
   }
 
