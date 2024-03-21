@@ -25,6 +25,7 @@ import {
   FrontendValidator,
   BotValidator,
   FunctionValidator,
+  ContainerAppValidator,
 } from "../../commonlib";
 import m365Login from "@microsoft/teamsapp-cli/src/commonlib/m365Login";
 
@@ -41,6 +42,7 @@ export abstract class CaseFactory {
     | "function"
     | "spfx"
     | "tab & bot"
+    | "aca"
   )[] = [];
   public options?: {
     skipProvision?: boolean;
@@ -63,6 +65,7 @@ export abstract class CaseFactory {
       | "function"
       | "spfx"
       | "tab & bot"
+      | "aca"
     )[] = [],
     options: {
       skipProvision?: boolean;
@@ -182,6 +185,11 @@ export abstract class CaseFactory {
               env
             );
             await functionValidator.validateProvision();
+          }
+          if (validate.includes("aca")) {
+            // Validate Container App Provision
+            const aca = new ContainerAppValidator(context, projectPath, env);
+            await aca.validateProvision(false);
           }
         }
 
