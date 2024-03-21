@@ -14,5 +14,5 @@ new BotSSODockerTestCase(
   TemplateProjectFolder.BotSSODocker,
   0,
   "yiminjin@microsoft.com",
-  ["bot"]
+  ["aca"]
 ).test();
