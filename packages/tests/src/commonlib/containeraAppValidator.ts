@@ -61,7 +61,7 @@ export class ContainerAppValidator {
   constructor(ctx: any, projectPath: string, env: string) {
     console.log("Start to init validator for Azure Container App.");
 
-    console.log("ctx:" + ctx);
+    console.log("ctx:" + JSON.parse(ctx));
     this.ctx = ctx;
     this.projectPath = projectPath;
     this.env = env;
@@ -91,7 +91,7 @@ export class ContainerAppValidator {
       this.containerAppName,
       token as string
     );
-    console.log("response:" + response);
+    console.log("response:" + JSON.parse(response));
     chai.assert.exists(response);
     chai.assert.equal(
       response[BaseConfig.BOT_ID],
