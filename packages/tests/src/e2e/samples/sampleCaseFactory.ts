@@ -150,7 +150,6 @@ export abstract class CaseFactory {
           await onBeforeProvision(projectPath);
 
           const result = await createResourceGroup(appName + "-rg", "westus");
-          console.log("result:" + JSON.stringify(result, null, 2));
           expect(result).to.be.true;
           process.env["AZURE_RESOURCE_GROUP_NAME"] = appName + "-rg";
 

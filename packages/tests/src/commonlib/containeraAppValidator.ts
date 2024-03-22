@@ -16,6 +16,8 @@ import {
   getExpectedM365ApplicationIdUri,
   getExpectedM365ClientSecret,
   getContainerAppProperties,
+  getSubscriptionIdFromResourceId,
+  getResourceGroupNameFromResourceId,
 } from "./utilities";
 
 const baseUrlListDeployments = (
@@ -66,9 +68,11 @@ export class ContainerAppValidator {
     this.projectPath = projectPath;
     this.env = env;
 
-    this.subscriptionId = this.ctx[EnvConstants.AZURE_SUBSCRIPTION_ID];
+    const resourceId = ctx[EnvConstants.AZURE_CONTAINER_APP_RESOURCE_ID];
+    chai.assert.exists(resourceId);
+    this.subscriptionId = getSubscriptionIdFromResourceId(resourceId);
     chai.assert.exists(this.subscriptionId);
-    this.rg = this.ctx[EnvConstants.AZURE_RESOURCE_GROUP_NAME];
+    this.rg = getResourceGroupNameFromResourceId(resourceId);
     chai.assert.exists(this.rg);
     this.containerAppName = this.ctx[EnvConstants.AZURE_CONTAINER_APP_NAME];
     chai.assert.exists(this.containerAppName);
