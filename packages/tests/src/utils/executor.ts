@@ -115,7 +115,7 @@ export class Executor {
     return this.execute(command, workspace, processEnv);
   }
 
-  static async provision(workspace: string, env = "dev", isV3 = true) {
+  static async provision(workspace: string, env = "dev", isV3 = false) {
     return this.executeCmd(workspace, "provision", env, undefined, false, isV3);
   }
 
