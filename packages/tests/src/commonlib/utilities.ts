@@ -303,3 +303,16 @@ export async function getContainerAppProperties(
 
   return undefined;
 }
+
+export async function getContainerApp(
+  subscriptionId: string,
+  rg: string,
+  containerAppName: string
+) {
+  const { ContainerAppsAPIClient } = require("@azure/arm-appcontainers");
+  const { DefaultAzureCredential } = require("@azure/identity");
+  const credential = new DefaultAzureCredential();
+  const client = new ContainerAppsAPIClient(credential, subscriptionId);
+  const result = await client.containerApps.get(rg, containerAppName);
+  console.log("result", result);
+}

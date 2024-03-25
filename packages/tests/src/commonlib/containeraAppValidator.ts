@@ -18,6 +18,7 @@ import {
   getContainerAppProperties,
   getSubscriptionIdFromResourceId,
   getResourceGroupNameFromResourceId,
+  getContainerApp,
 } from "./utilities";
 
 const baseUrlListDeployments = (
@@ -91,11 +92,10 @@ export class ContainerAppValidator {
     console.log("subscriptionId", this.subscriptionId);
     console.log("rg", this.rg);
     console.log("containerAppName", this.containerAppName);
-    const response = await getContainerAppProperties(
+    const response = await getContainerApp(
       this.subscriptionId,
       this.rg,
-      this.containerAppName,
-      token as string
+      this.containerAppName
     );
     console.log("response:" + JSON.stringify(response, null, 2));
     chai.assert.exists(response);
