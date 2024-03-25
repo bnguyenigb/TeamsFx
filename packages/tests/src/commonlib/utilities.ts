@@ -287,7 +287,7 @@ export async function getContainerAppProperties(
     rg: string,
     containerAppName: string
   ) =>
-    `GET https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${rg}/providers/Microsoft.App/containerApps/${containerAppName}?api-version=2023-05-01`;
+    `https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${rg}/providers/Microsoft.App/containerApps/${containerAppName}?api-version=2023-05-01`;
 
   try {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
