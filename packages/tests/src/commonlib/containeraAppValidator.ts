@@ -99,26 +99,6 @@ export class ContainerAppValidator {
     );
     console.log("response:" + JSON.stringify(response, null, 2));
     chai.assert.exists(response);
-    if (includeAAD) {
-      // TODO
-    }
-    // if (activeResourcePlugins.includes(PluginId.Function)) {
-    //   chai.assert.equal(
-    //     response[FunctionConfig.API_ENDPOINT],
-    //     this.ctx[PluginId.Function][StateConfigKey.functionEndpoint] as string
-    //   );
-    // }
-    // if (activeResourcePlugins.includes(PluginId.AzureSQL)) {
-    //   chai.assert.equal(
-    //     response[SQLConfig.SQL_ENDPOINT],
-    //     this.ctx[PluginId.AzureSQL][StateConfigKey.sqlEndpoint] as string
-    //   );
-    //   chai.assert.equal(
-    //     response[SQLConfig.SQL_DATABASE_NAME],
-    //     this.ctx[PluginId.AzureSQL][StateConfigKey.databaseName] as string
-    //   );
-    // }
-
     console.log("Successfully validate Azure Container App Provision.");
   }
 
