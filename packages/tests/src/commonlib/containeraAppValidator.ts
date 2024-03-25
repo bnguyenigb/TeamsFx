@@ -92,10 +92,11 @@ export class ContainerAppValidator {
     console.log("subscriptionId", this.subscriptionId);
     console.log("rg", this.rg);
     console.log("containerAppName", this.containerAppName);
-    const response = await getContainerApp(
+    const response = await getContainerAppProperties(
       this.subscriptionId,
       this.rg,
-      this.containerAppName
+      this.containerAppName,
+      token as string
     );
     console.log("response:" + JSON.stringify(response, null, 2));
     chai.assert.exists(response);

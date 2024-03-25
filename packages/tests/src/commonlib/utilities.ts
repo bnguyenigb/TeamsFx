@@ -291,7 +291,7 @@ export async function getContainerAppProperties(
 
   try {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const getResponse = await axios.post(
+    const getResponse = await axios.get(
       baseUrlAppSettings(subscriptionId, rg, containerAppName)
     );
     if (getResponse && getResponse.data && getResponse.data.properties) {
