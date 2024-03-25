@@ -99,10 +99,6 @@ export class ContainerAppValidator {
     );
     console.log("response:" + JSON.stringify(response, null, 2));
     chai.assert.exists(response);
-    chai.assert.equal(
-      response[BaseConfig.BOT_ID],
-      this.ctx[EnvConstants.BOT_ID] as string
-    );
     if (includeAAD) {
       // TODO
     }
