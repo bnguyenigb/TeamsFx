@@ -291,28 +291,16 @@ export async function getContainerAppProperties(
 
   try {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const getResponse = await axios.get(
-      baseUrlAppSettings(subscriptionId, rg, containerAppName)
+    const planResponse = await runWithRetry(() =>
+      axios.get(baseUrlAppSettings(subscriptionId, rg, containerAppName))
     );
-    if (getResponse && getResponse.data && getResponse.data.properties) {
-      return getResponse.data.properties;
+    console.log("planResponse", planResponse);
+    if (planResponse && planResponse.data && planResponse.data.properties) {
+      return planResponse.data.properties;
     }
   } catch (error) {
     console.log(error);
   }
 
   return undefined;
-}
-
-export async function getContainerApp(
-  subscriptionId: string,
-  rg: string,
-  containerAppName: string
-) {
-  const { ContainerAppsAPIClient } = require("@azure/arm-appcontainers");
-  const { DefaultAzureCredential } = require("@azure/identity");
-  const credential = new DefaultAzureCredential();
-  const client = new ContainerAppsAPIClient(credential, subscriptionId);
-  const result = await client.containerApps.get(rg, containerAppName);
-  console.log("result", result);
 }
