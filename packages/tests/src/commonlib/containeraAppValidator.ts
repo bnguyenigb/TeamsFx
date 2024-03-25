@@ -18,7 +18,6 @@ import {
   getContainerAppProperties,
   getSubscriptionIdFromResourceId,
   getResourceGroupNameFromResourceId,
-  getContainerApp,
 } from "./utilities";
 
 const baseUrlListDeployments = (
