@@ -28,7 +28,6 @@ import {
   ContainerAppValidator,
 } from "../../commonlib";
 import m365Login from "@microsoft/teamsapp-cli/src/commonlib/m365Login";
-import { AzSqlHelper } from "../../utils/azureCliHelper";
 
 export abstract class CaseFactory {
   public sampleName: TemplateProjectFolder;
@@ -188,8 +187,7 @@ export abstract class CaseFactory {
             await functionValidator.validateProvision();
           }
           if (validate.includes("aca")) {
-            const command = `az login -t ${process.env.AZURE_TENANT_ID}`;
-            const { success } = await Executor.execute(command, process.cwd());
+            expect(success).to.be.true;
             // Validate Container App Provision
             const aca = new ContainerAppValidator(context, projectPath, env);
             await aca.validateProvision(false);
@@ -203,6 +201,8 @@ export abstract class CaseFactory {
             console.log("debug finish!");
             return;
           }
+
+          await Executor.login();
           const { success } = await Executor.deploy(projectPath);
           expect(success).to.be.true;
 

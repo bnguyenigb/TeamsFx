@@ -13,6 +13,7 @@ import fs from "fs-extra";
 import * as os from "os";
 import { spawn, ChildProcessWithoutNullStreams } from "child_process";
 import { expect } from "chai";
+import * as azureConfig from "@microsoft/teamsapp-cli/src/commonlib/common/userPasswordConfig";
 
 export class Executor {
   static async execute(
@@ -50,8 +51,23 @@ export class Executor {
   }
 
   static login() {
-    const command = `az login --service-principal -u ${process.env.AZURE_CLIENT_ID} -p ${process.env.AZURE_CLIENT_SECRET} -t ${process.env.AZURE_TENANT_ID}`;
-    return this.execute(command, process.cwd());
+    const tenantId = azureConfig.AZURE_TENANT_ID || "";
+    const clientId = azureConfig.client_id;
+    const username = azureConfig.AZURE_ACCOUNT_NAME || "";
+    const password = azureConfig.AZURE_ACCOUNT_PASSWORD || "";
+    const subscriptionId = azureConfig.AZURE_SUBSCRIPTION_ID || "";
+    console.log("tenantId", tenantId);
+    console.log("clientId", clientId);
+    console.log("username", username);
+    console.log("password", password);
+    console.log("subscriptionId", subscriptionId);
+    const command = `az login --service-principal -u ${clientId} -p ${process.env.AZURE_CLIENT_SECRET} -t ${tenantId}`;
+    let success = this.execute(command, process.cwd());
+    console.log("success1", success);
+    const command1 = `az login --service-principal -u ${username} -p ${password} -t ${tenantId}`;
+    success = this.execute(command1, process.cwd());
+    const command2 = `az login --service-principal -u ${clientId} -p ${password} -t ${tenantId}`;
+    return this.execute(command2, process.cwd());
   }
 
   static concatProcessEnv(
