@@ -61,10 +61,10 @@ export class Executor {
     console.log("username", username);
     console.log("password", password);
     console.log("subscriptionId", subscriptionId);
-    const command = `az login --service-principal -u ${clientId} -p ${process.env.AZURE_CLIENT_SECRET} -t ${tenantId}`;
+    const command = `az login --service-principal -p ${process.env.AZURE_CLIENT_SECRET} -u ${clientId} -t ${tenantId}`;
     let success = this.execute(command, process.cwd());
     console.log("success1", success);
-    const command1 = `az login --service-principal -u ${username} -p ${password} -t ${tenantId}`;
+    const command1 = `az login --service-principal -t ${tenantId} -u ${username} -p ${password} `;
     success = this.execute(command1, process.cwd());
     const command2 = `az login --service-principal -u ${clientId} -p ${password} -t ${tenantId}`;
     return this.execute(command2, process.cwd());
