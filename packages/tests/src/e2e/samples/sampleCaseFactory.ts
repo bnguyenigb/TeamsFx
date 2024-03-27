@@ -188,7 +188,8 @@ export abstract class CaseFactory {
             await functionValidator.validateProvision();
           }
           if (validate.includes("aca")) {
-            await AzSqlHelper.login();
+            const command = `az login -t ${process.env.AZURE_TENANT_ID}`;
+            const { success } = await Executor.execute(command, process.cwd());
             // Validate Container App Provision
             const aca = new ContainerAppValidator(context, projectPath, env);
             await aca.validateProvision(false);

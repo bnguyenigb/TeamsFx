@@ -109,7 +109,7 @@ export class AzSqlHelper {
   }
 
   static async login() {
-    const command = `az login --service-principal -u 7ea7c24c-b1f6-4a20-9d11-9ae12e9e7ac0 -p ${Env["AZURE_CLIENT_SECRET"]} -t ${Env["azureTenantId"]}`;
+    const command = `az login --service-principal -u ${Env["AZURE_CLIENT_ID"]} -p ${Env["AZURE_CLIENT_SECRET"]} -t ${Env["azureTenantId"]}`;
     const { success } = await Executor.execute(command, process.cwd());
     if (!success) {
       console.error(`Failed to login`);
