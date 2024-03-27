@@ -187,8 +187,6 @@ export abstract class CaseFactory {
             await functionValidator.validateProvision();
           }
           if (validate.includes("aca")) {
-            const { success } = await Executor.login();
-            expect(success).to.be.true;
             // Validate Container App Provision
             const aca = new ContainerAppValidator(context, projectPath, env);
             await aca.validateProvision(false);
@@ -202,6 +200,7 @@ export abstract class CaseFactory {
             console.log("debug finish!");
             return;
           }
+          await Executor.login();
           const { success } = await Executor.deploy(projectPath);
           expect(success).to.be.true;
 
