@@ -275,7 +275,12 @@ export class WebviewPanel {
       return;
     }
     if (this.panel && this.panel.webview) {
-      const readme = this.replaceRelativeImagePaths(htmlContent, sample);
+      let readme = this.replaceRelativeImagePaths(htmlContent, sample);
+      readme = this.replaceMermaidHtmlCode(readme);
+      readme += `<script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      </script>`;
+      console.log(readme);
       await this.panel.webview.postMessage({
         message: Commands.LoadSampleReadme,
         readme: readme,
@@ -296,6 +301,12 @@ export class WebviewPanel {
     const imageUrl = `https://github.com/${urlInfo.owner}/${urlInfo.repository}/blob/${urlInfo.ref}/${urlInfo.dir}/${sample.thumbnailPath}?raw=1`;
     const imageRegex = /img\s+src="([^"]+)"/gm;
     return htmlContent.replace(imageRegex, `img src="${imageUrl}"`);
+  }
+
+  private replaceMermaidHtmlCode(htmlContent: string) {
+    const mermaidSearcheValue = /<pre lang="mermaid" aria-label="Raw mermaid code">/gm;
+    const mermaidReplaceValue = l`<pre class="mermaid">`;
+    return htmlContent.replace(mermaidSearcheValue, mermaidReplaceValue);
   }
 
   private getWebpageTitle(panelType: PanelType): string {
@@ -331,6 +342,9 @@ export class WebviewPanel {
     const dompurifyUri = this.panel.webview.asWebviewUri(
       vscode.Uri.joinPath(globalVariables.context.extensionUri, "out", "resource", "purify.min.js")
     );
+    const mermaidUri = this.panel.webview.asWebviewUri(
+      vscode.Uri.joinPath(globalVariables.context.extensionUri, "out", "resource", "mermaid.min.js")
+    );
 
     // Use a nonce to to only allow specific scripts to be run
     const nonce = this.getNonce();
@@ -351,6 +365,9 @@ export class WebviewPanel {
             </script>
             <script nonce="${nonce}" type="module" src="${scriptUri.toString()}"></script>
             <script nonce="${nonce}" type="text/javascript" src="${dompurifyUri.toString()}"></script>
+            <script nonce="${nonce}" type="text/javascript" src="${mermaidUri.toString()}">
+              mermaid.initialize({ startOnLoad: true });
+            </script>
           </body>
         </html>`;
   }
