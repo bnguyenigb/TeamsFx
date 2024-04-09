@@ -14,6 +14,7 @@ import * as os from "os";
 import { spawn, ChildProcessWithoutNullStreams } from "child_process";
 import { expect } from "chai";
 import * as azureConfig from "@microsoft/teamsapp-cli/src/commonlib/common/userPasswordConfig";
+import { Env } from "./env";
 
 export class Executor {
   static async execute(
@@ -51,9 +52,9 @@ export class Executor {
   }
 
   static login() {
-    const clientId = "8afc47ff-b53d-45b4-8e4a-ad923568f28c";
-    const password = ".ZE8Q~NdRCUTkVxNYhKtRgzdoFrz-dcHInQ5WcUY";
-    const tenantId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+    const clientId = Env.AZURE_CLIENT_ID;
+    const password = Env.AZURE_CLIENT_SECRET;
+    const tenantId = Env.azureTenantId;
 
     const command = `az login --service-principal -u ${clientId} -p ${password} -t ${tenantId}`;
     return this.execute(command, process.cwd());
