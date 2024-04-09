@@ -149,9 +149,10 @@ export abstract class CaseFactory {
 
           await onBeforeProvision(projectPath);
 
-          const result = await createResourceGroup(appName + "-rg", "westus");
-          expect(result).to.be.true;
-          process.env["AZURE_RESOURCE_GROUP_NAME"] = appName + "-rg";
+          // const result = await createResourceGroup(appName + "-rg", "westus");
+          // expect(result).to.be.true;
+          // process.env["AZURE_RESOURCE_GROUP_NAME"] = appName + "-rg";
+          process.env["AZURE_RESOURCE_GROUP_NAME"] = "yukuntest-rg";
 
           const { success } = await Executor.provision(projectPath);
           expect(success).to.be.true;

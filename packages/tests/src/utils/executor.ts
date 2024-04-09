@@ -51,23 +51,12 @@ export class Executor {
   }
 
   static login() {
-    const tenantId = azureConfig.AZURE_TENANT_ID || "";
-    const clientId = azureConfig.client_id;
-    const username = azureConfig.AZURE_ACCOUNT_NAME || "";
-    const password = azureConfig.AZURE_ACCOUNT_PASSWORD || "";
-    const subscriptionId = azureConfig.AZURE_SUBSCRIPTION_ID || "";
-    console.log("tenantId", tenantId);
-    console.log("clientId", clientId);
-    console.log("username", username);
-    console.log("password", password);
-    console.log("subscriptionId", subscriptionId);
-    const command = `az login --service-principal -p ${process.env.AZURE_CLIENT_SECRET} -u ${clientId} -t ${tenantId}`;
-    let success = this.execute(command, process.cwd());
-    console.log("success1", success);
-    const command1 = `az login --service-principal -t ${tenantId} -u ${username} -p ${password} `;
-    success = this.execute(command1, process.cwd());
-    const command2 = `az login --service-principal -u ${clientId} -p ${password} -t ${tenantId}`;
-    return this.execute(command2, process.cwd());
+    const clientId = "8afc47ff-b53d-45b4-8e4a-ad923568f28c";
+    const password = ".ZE8Q~NdRCUTkVxNYhKtRgzdoFrz-dcHInQ5WcUY";
+    const tenantId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+
+    const command = `az login --service-principal -u ${clientId} -p ${password} -t ${tenantId}`;
+    return this.execute(command, process.cwd());
   }
 
   static concatProcessEnv(
