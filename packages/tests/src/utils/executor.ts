@@ -52,7 +52,7 @@ export class Executor {
   }
 
   static login() {
-    const command = `az login -u ${process.env.AZURE_ACCOUNT_NAME} -p ${process.env.AZURE_ACCOUNT_PASSWORD}`;
+    const command = `az login -u ${Env["azureAccountName"]} -p '${Env["azureAccountPassword"]}'`;
     return this.execute(command, process.cwd());
   }
 
