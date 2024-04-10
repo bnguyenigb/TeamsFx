@@ -191,7 +191,6 @@ export abstract class CaseFactory {
             // Validate Container App Provision
             const aca = new ContainerAppValidator(context, projectPath, env);
             await aca.validateProvision(false);
-            await Executor.login();
           }
         }
 
@@ -201,6 +200,10 @@ export abstract class CaseFactory {
             console.log("skip Deploy...");
             console.log("debug finish!");
             return;
+          }
+
+          if (validate.includes("aca")) {
+            await Executor.login();
           }
 
           const { success } = await Executor.deploy(projectPath);

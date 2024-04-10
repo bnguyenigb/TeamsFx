@@ -51,9 +51,14 @@ export class Executor {
     }
   }
 
-  static login() {
+  static async login() {
     const command = `az login -u ${Env["azureAccountName"]} -p '${Env["azureAccountPassword"]}'`;
-    return this.execute(command, process.cwd());
+    const { success } = await Executor.execute(command, process.cwd());
+
+    // set subscription
+    const subscription = Env["azureSubscriptionId"];
+    const setSubscriptionCommand = `az account set --subscription ${subscription}`;
+    return await Executor.execute(setSubscriptionCommand, process.cwd());
   }
 
   static concatProcessEnv(
