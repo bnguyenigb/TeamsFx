@@ -294,7 +294,6 @@ export async function getContainerAppProperties(
     const planResponse = await runWithRetry(() =>
       axios.get(baseUrlAppSettings(subscriptionId, rg, containerAppName))
     );
-    console.log("planResponse", planResponse);
     if (planResponse && planResponse.data && planResponse.data.properties) {
       return planResponse.data.properties;
     }
