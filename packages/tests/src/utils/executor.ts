@@ -52,11 +52,7 @@ export class Executor {
   }
 
   static login() {
-    const clientId = Env.AZURE_CLIENT_ID;
-    const password = Env.AZURE_CLIENT_SECRET;
-    const tenantId = Env.azureTenantId;
-
-    const command = `az login --service-principal -u ${clientId} -p ${password} -t ${tenantId}`;
+    const command = `az login -u ${process.env.AZURE_ACCOUNT_NAME} -p ${process.env.AZURE_ACCOUNT_PASSWORD}`;
     return this.execute(command, process.cwd());
   }
 
