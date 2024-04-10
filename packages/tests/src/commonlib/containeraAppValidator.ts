@@ -63,7 +63,6 @@ export class ContainerAppValidator {
   constructor(ctx: any, projectPath: string, env: string) {
     console.log("Start to init validator for Azure Container App.");
 
-    console.log("ctx:" + JSON.stringify(ctx, null, 2));
     this.ctx = ctx;
     this.projectPath = projectPath;
     this.env = env;
