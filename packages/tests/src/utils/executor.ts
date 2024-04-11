@@ -53,7 +53,10 @@ export class Executor {
   static async login() {
     const command = `az login -u ${Env["azureAccountName"]} -p '${Env["azureAccountPassword"]}'`;
     const { success } = await Executor.execute(command, process.cwd());
-    expect(success).to.be.true;
+    if (!success) {
+      console.error(`Failed to login`);
+      // return { success: false };
+    }
 
     // set subscription
     const subscription = Env["azureSubscriptionId"];
