@@ -167,7 +167,7 @@ export class Executor {
   }
 
   static async validateContainerAppStatus() {
-    const command = `az containerapp show --name ${process.env["AZURE_RESOURCE_GROUP_NAME"]} --resource-group ${Env["azureResourceGroup"]} --subscription ${Env["azureSubscriptionId"]}`;
+    const command = `az containerapp show --name ${process.env["AZURE_CONTAINER_APP_NAME"]} --resource-group ${Env["azureResourceGroup"]} --subscription ${Env["azureSubscriptionId"]}`;
     const { stdout, success } = await Executor.execute(command, process.cwd());
     expect(success).to.be.true;
     const result = JSON.parse(stdout);
