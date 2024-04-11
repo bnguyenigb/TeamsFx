@@ -75,6 +75,7 @@ export class ContainerAppValidator {
     chai.assert.exists(this.rg);
     this.containerAppName = this.ctx[EnvConstants.AZURE_CONTAINER_APP_NAME];
     chai.assert.exists(this.containerAppName);
+    process.env["AZURE_RESOURCE_GROUP_NAME"] = this.containerAppName;
 
     console.log("Successfully init validator for Azure Container App.");
   }

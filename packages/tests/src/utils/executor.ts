@@ -13,7 +13,6 @@ import fs from "fs-extra";
 import * as os from "os";
 import { spawn, ChildProcessWithoutNullStreams } from "child_process";
 import { expect } from "chai";
-import * as azureConfig from "@microsoft/teamsapp-cli/src/commonlib/common/userPasswordConfig";
 import { Env } from "./env";
 
 export class Executor {
@@ -54,6 +53,7 @@ export class Executor {
   static async login() {
     const command = `az login -u ${Env["azureAccountName"]} -p '${Env["azureAccountPassword"]}'`;
     const { success } = await Executor.execute(command, process.cwd());
+    expect(success).to.be.true;
 
     // set subscription
     const subscription = Env["azureSubscriptionId"];
@@ -156,6 +156,18 @@ export class Executor {
     isV3 = true
   ) {
     return this.executeCmd(workspace, "deploy", env, processEnv, npx, isV3);
+  }
+
+  static async validateContainerAppStatus() {
+    const command = `az containerapp show --name ${process.env["AZURE_RESOURCE_GROUP_NAME"]}
+     --resource-group ${Env["azureResourceGroup"]} --subscription ${Env["azureSubscriptionId"]}`;
+    const { stdout, success } = await Executor.execute(command, process.cwd());
+    expect(success).to.be.true;
+    const result = JSON.parse(stdout);
+    console.log("result: ", result);
+    const status = result.properties?.status;
+    console.log("status: ", status);
+    expect(status).to.be.equal("Running");
   }
 
   static async deploy(workspace: string, env = "dev") {

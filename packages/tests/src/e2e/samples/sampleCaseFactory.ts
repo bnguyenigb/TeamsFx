@@ -231,6 +231,10 @@ export abstract class CaseFactory {
             options?.manifestFolderName
           );
           expect(success).to.be.true;
+
+          if (validate.includes("aca")) {
+            await Executor.validateContainerAppStatus();
+          }
         }
 
         // package
