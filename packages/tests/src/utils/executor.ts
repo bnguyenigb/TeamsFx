@@ -14,6 +14,7 @@ import * as os from "os";
 import { spawn, ChildProcessWithoutNullStreams } from "child_process";
 import { expect } from "chai";
 import { Env } from "./env";
+import { EnvConstants } from "../../src/commonlib/constants";
 
 export class Executor {
   static async execute(
@@ -164,17 +165,6 @@ export class Executor {
     isV3 = true
   ) {
     return this.executeCmd(workspace, "deploy", env, processEnv, npx, isV3);
-  }
-
-  static async validateContainerAppStatus() {
-    const command = `az containerapp show --name ${process.env["AZURE_CONTAINER_APP_NAME"]} --resource-group ${Env["azureResourceGroup"]} --subscription ${Env["azureSubscriptionId"]}`;
-    const { stdout, success } = await Executor.execute(command, process.cwd());
-    expect(success).to.be.true;
-    const result = JSON.parse(stdout);
-    console.log("result: ", result);
-    const status = result.properties?.runningStatus;
-    console.log("status: ", status);
-    expect(status).to.be.equal("Running");
   }
 
   static async deploy(workspace: string, env = "dev") {

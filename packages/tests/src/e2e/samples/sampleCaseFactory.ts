@@ -152,7 +152,6 @@ export abstract class CaseFactory {
           const result = await createResourceGroup(appName + "-rg", "westus");
           expect(result).to.be.true;
           process.env["AZURE_RESOURCE_GROUP_NAME"] = appName + "-rg";
-          // process.env["AZURE_RESOURCE_GROUP_NAME"] = "yukuntest-rg";
 
           const { success } = await Executor.provision(projectPath);
           expect(success).to.be.true;
@@ -189,7 +188,7 @@ export abstract class CaseFactory {
           }
           if (validate.includes("aca")) {
             // Validate Container App Provision
-            const aca = new ContainerAppValidator(context, projectPath, env);
+            const aca = new ContainerAppValidator(context);
             await aca.validateProvision(false);
           }
         }
@@ -233,7 +232,7 @@ export abstract class CaseFactory {
           expect(success).to.be.true;
 
           if (validate.includes("aca")) {
-            await Executor.validateContainerAppStatus();
+            await ContainerAppValidator.validateContainerAppStatus();
           }
         }
 
