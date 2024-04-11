@@ -52,9 +52,14 @@ export class Executor {
 
   static async login() {
     const command = `az login -u ${Env["azureAccountName"]} -p '${Env["azureAccountPassword"]}'`;
-    const { success } = await Executor.execute(command, process.cwd());
+    const { stdout, stderr, success } = await Executor.execute(
+      command,
+      process.cwd()
+    );
     if (!success) {
       console.error(`Failed to login`);
+      console.log("login stdout: ", stdout);
+      console.log("login stderr: ", stderr);
       // return { success: false };
     }
 
@@ -162,8 +167,7 @@ export class Executor {
   }
 
   static async validateContainerAppStatus() {
-    const command = `az containerapp show --name ${process.env["AZURE_RESOURCE_GROUP_NAME"]}
-     --resource-group ${Env["azureResourceGroup"]} --subscription ${Env["azureSubscriptionId"]}`;
+    const command = `az containerapp show --name ${process.env["AZURE_RESOURCE_GROUP_NAME"]} --resource-group ${Env["azureResourceGroup"]} --subscription ${Env["azureSubscriptionId"]}`;
     const { stdout, success } = await Executor.execute(command, process.cwd());
     expect(success).to.be.true;
     const result = JSON.parse(stdout);
