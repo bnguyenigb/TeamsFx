@@ -172,7 +172,7 @@ export class Executor {
     expect(success).to.be.true;
     const result = JSON.parse(stdout);
     console.log("result: ", result);
-    const status = result.properties?.status;
+    const status = result.properties?.runningStatus;
     console.log("status: ", status);
     expect(status).to.be.equal("Running");
   }
