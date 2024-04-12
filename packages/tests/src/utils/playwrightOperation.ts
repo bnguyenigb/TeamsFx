@@ -1531,18 +1531,14 @@ export async function validateNpm(page: Page, options?: { npmName?: string }) {
     console.log("search npm ", searchPack);
     const input = await frame?.waitForSelector("div.ui-box input.ui-box");
     await input?.type(searchPack);
-    try {
-      const targetItem = await frame?.waitForSelector(
-        `span:has-text("${searchPack}")`
-      );
-      await targetItem?.click();
-      await frame?.waitForSelector(`card span:has-text("${searchPack}")`);
-      await frame?.click('button[name="send"]');
-      console.log("verify npm search successfully!!!");
-      await page.waitForTimeout(Timeout.shortTimeLoading);
-    } catch (error) {
-      console.log(error);
-    }
+    const targetItem = await frame?.waitForSelector(
+      `span:has-text("${searchPack}")`
+    );
+    await targetItem?.click();
+    await frame?.waitForSelector(`card span:has-text("${searchPack}")`);
+    await frame?.click('button[name="send"]');
+    console.log("verify npm search successfully!!!");
+    await page.waitForTimeout(Timeout.shortTimeLoading);
   } catch (error) {
     await page.screenshot({
       path: getPlaywrightScreenshotPath("error"),
