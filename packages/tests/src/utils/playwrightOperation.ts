@@ -1531,10 +1531,12 @@ export async function validateNpm(page: Page, options?: { npmName?: string }) {
     console.log("search npm ", searchPack);
     const input = await frame?.waitForSelector("div.ui-box input.ui-box");
     await input?.type(searchPack);
+    await page.waitForTimeout(Timeout.shortTimeLoading);
     const targetItem = await frame?.waitForSelector(
       `span:has-text("${searchPack}")`
     );
     await targetItem?.click();
+    await page.waitForTimeout(Timeout.shortTimeLoading);
     await frame?.waitForSelector(`card span:has-text("${searchPack}")`);
     await frame?.click('button[name="send"]');
     console.log("verify npm search successfully!!!");
