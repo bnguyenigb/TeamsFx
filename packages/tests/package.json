@@ -72,8 +72,8 @@
     "@azure/msal-node": "1.17.3",
     "@microsoft/teamsapp-cli": "workspace:*",
     "@microsoft/teamsfx-api": "workspace:*",
-    "@types/semver": "^7.3.8",
-    "axios": "^1.6.2",
+    "@types/semver": "^7.5.8",
+    "axios": "^1.6.3",
     "azure-arm-resource": "^7.4.0",
     "dotenv": "^8.2.0",
     "fs-extra": "^7.0.1",
@@ -81,7 +81,7 @@
     "md5": "^2.3.0",
     "ms-rest-azure": "^3.0.1",
     "querystring": "^0.2.1",
-    "semver": "^7.5.2",
+    "semver": "^7.6.0",
     "yaml": "^2.2.2"
   },
   "optionalDependencies": {
